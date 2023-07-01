@@ -1,15 +1,23 @@
 package com.devsuperior.sistemaClientes.dto;
 
 import com.devsuperior.sistemaClientes.entities.Client;
+import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 
 public class ClientDTO {
 
     private Long id;
+    @Size(min = 3, message = "O nome precisa de no mínimo 3 caracteres")
+    @Size(max = 20, message = "O nome precisa ser no máximo de 20 caracteres")
+    @NotBlank(message = "Campo Obrigatório.")
     private String name;
     private String cpf;
     private Double income;
+    @PastOrPresent(message = "Não pode ser data presente ou futura.")
     private LocalDate birthDate;
     private Integer children;
 
