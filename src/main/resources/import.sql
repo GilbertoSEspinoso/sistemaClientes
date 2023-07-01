@@ -1,4 +1,4 @@
-INSERT INTO tb_client(name, cpf, income, birth_date, children) VALUES ('Frodo Baggins Pescador de Sapos', 12345678901, 3.500, '1990-07-01', 0);
+INSERT INTO tb_client(name, cpf, income, birth_date, children) VALUES ('Frodo Bolseiro', 12345678901, 3.500, '1990-07-01', 0);
 INSERT INTO tb_client(name, cpf, income, birth_date, children) VALUES ('Gandalf, o Cinzento', 98765432109, 8.000, '1975-03-15', 0);
 INSERT INTO tb_client(name, cpf, income, birth_date, children) VALUES ('Aragorn Passos Largo', 45678901234, 5.200, '1983-11-23', 2);
 INSERT INTO tb_client(name, cpf, income, birth_date, children) VALUES ('Legolas Arqueiro dos Elfos', 78901234567, 6.800, '1988-09-05', 0);
