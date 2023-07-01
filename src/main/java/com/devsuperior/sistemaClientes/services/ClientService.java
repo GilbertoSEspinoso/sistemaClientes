@@ -4,6 +4,7 @@ import com.devsuperior.sistemaClientes.dto.ClientDTO;
 import com.devsuperior.sistemaClientes.entities.Client;
 import com.devsuperior.sistemaClientes.repositories.ClientRepository;
 import com.devsuperior.sistemaClientes.services.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -40,14 +41,20 @@ public class ClientService {
 
     @Transactional
     public ClientDTO update(Long id, ClientDTO dto) {
-        Client entity = repository.getReferenceById(id);
-        copyDtoToEntity(dto, entity);
-        entity = repository.save(entity);
-        return new ClientDTO(entity);
+        try {
+            Client entity = repository.getReferenceById(id);
+            copyDtoToEntity(dto, entity);
+            entity = repository.save(entity);
+            return new ClientDTO(entity);
+        } catch (EntityNotFoundException e) {
+            throw new ResourceNotFoundException("Recurso não encontrado.");
+        }
     }
 
     @Transactional
     public void delete(Long id) {
+        if (!repository.existsById(id))
+            throw new ResourceNotFoundException("Recurso não encontrado.");
         repository.deleteById(id);
     }
 
