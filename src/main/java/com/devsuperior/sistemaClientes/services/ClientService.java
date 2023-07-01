@@ -3,6 +3,7 @@ package com.devsuperior.sistemaClientes.services;
 import com.devsuperior.sistemaClientes.dto.ClientDTO;
 import com.devsuperior.sistemaClientes.entities.Client;
 import com.devsuperior.sistemaClientes.repositories.ClientRepository;
+import com.devsuperior.sistemaClientes.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,12 +18,13 @@ public class ClientService {
 
     @Transactional(readOnly = true)
     public ClientDTO findById(Long id) {
-        Client client = repository.findById(id).get();
+        Client client = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Recurso nâo encontrado."));
         return new ClientDTO(client);
     }
 
     @Transactional(readOnly = true)
     public Page<ClientDTO> findAll(Pageable pageable) {
+
         Page<Client> result = repository.findAll(pageable);
         return result.map(x -> new ClientDTO(x));
     }
