@@ -19,9 +19,9 @@ public class ClientController {
     private ClientService service;
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<ClientDTO>  findById(@PathVariable Long id) {
-      ClientDTO dto = service.findById(id);
-      return ResponseEntity.ok(dto);
+    public ResponseEntity<ClientDTO> findById(@PathVariable Long id) {
+        ClientDTO dto = service.findById(id);
+        return ResponseEntity.ok(dto);
     }
 
     @GetMapping
@@ -35,5 +35,11 @@ public class ClientController {
         dto = service.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
         return ResponseEntity.created(uri).body(dto);
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<ClientDTO> update(@PathVariable Long id, @RequestBody ClientDTO dto) {
+        dto = service.update(id, dto);
+        return ResponseEntity.ok(dto);
     }
 }
